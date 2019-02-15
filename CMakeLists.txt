@@ -10,8 +10,8 @@ set(CROARING_PATH ${DEPS_PATH}/CRoaring)
 set(HIREDIS_PATH ${DEPS_PATH}/hiredis)
 set(SDS_PATH ${DEPS_PATH}/sds)
 set(CROARING_BUILD_PATH ${DEPS_PATH}/CRoaring/build)
-#set(CMAKE_C_FLAGS_RELEASE "") # removes -NDEBUG
-set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_C_FLAGS_RELEASE "") # removes -NDEBUG
+set(CMAKE_BUILD_TYPE Release)
 
 link_directories(${CROARING_BUILD_PATH})
 link_directories(${HIREDIS_PATH})

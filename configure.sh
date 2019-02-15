@@ -43,10 +43,12 @@ function build()
   cmake ..
   make
   local LIB=$(find libredis-roaring*)
+  local DEP_LIB=$(find ../deps -type f -name libroaring.so)
   
   cd ..
   mkdir -p dist
   cp "build/$LIB" dist
+  cp "build/$DEP_LIB" dist
   cp deps/redis/redis.conf dist
   cp deps/redis/src/{redis-benchmark,redis-check-aof,redis-check-rdb,redis-cli,redis-sentinel,redis-server} dist
   echo "loadmodule $(pwd)/dist/$LIB" >> dist/redis.conf
@@ -59,11 +61,20 @@ function instructions()
   echo "Connect to server:"
   echo "./dist/redis-cli"
 }
+function makedeb()
+{
+  echo "Making debian package with binary for amd64"
+  mkdir -p libredis-roaring/usr/lib
+  cp ./dist/libroaring.so ./dist/libredis-roaring.so ./libredis-roaring/usr/lib/
+  dpkg-deb --build libredis-roaring
+  mkdir -p dist
+  mv libredis-roaring.deb dist/
+}
 
 configure_submodules
 configure_croaring
 configure_redis
 configure_hiredis
 build
+makedeb
 instructions
-

@@ -1,0 +1,5 @@
+Package: libredis-roaring
+Version: 0.2
+Maintainer: CreepyGhost
+Architecture: amd64
+Description: Redis Roaring-Bitmaps module
